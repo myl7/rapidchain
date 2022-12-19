@@ -12,7 +12,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/kimborgen/go-merkletree"
+	"github.com/wealdtech/go-merkletree"
 )
 
 // only data structures that are common in multiple, disjoint files, should belong here

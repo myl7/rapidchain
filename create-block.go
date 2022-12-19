@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/copier"
-	"github.com/kimborgen/go-merkletree"
+	"github.com/wealdtech/go-merkletree"
 )
 
 /*
