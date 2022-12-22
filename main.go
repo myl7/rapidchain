@@ -1,11 +1,10 @@
 package main
 
 import (
-	"crypto/ecdsa"
-	"crypto/elliptic"
 	"encoding/gob"
 	"flag"
 	"log"
+	"sync"
 	"time"
 )
 
@@ -57,10 +56,8 @@ func main() {
 	gob.Register(ProposedBlock{})
 	gob.Register(KademliaFindNodeMsg{})
 	gob.Register(KademliaFindNodeResponse{})
-	gob.Register(elliptic.CurveParams{})
-	gob.Register(ecdsa.PublicKey{})
 	gob.Register(PubKey{})
-	gob.Register(randomKey.Pub.Pub.Curve)
+	// gob.Register(randomKey.Pub.Pub.Curve)
 	gob.Register(ConsensusMsg{})
 	gob.Register(Transaction{})
 	gob.Register(FinalBlock{})
@@ -81,6 +78,12 @@ func main() {
 		errFatal(nil, "Default kappa was over 256/1byte")
 	}
 
+	// Load predefined dataset
+	// err := loadTxGenDataset(int(flagArgs.nUsers))
+	// if err != nil {
+	// 	errFatal(err, "Could not load tx gen dataset")
+	// }
+
 	// runtime.GOMAXPROCS(int(flagArgs.vCPUs))
 
 	if *functionPtr == "coordinator" {
@@ -94,11 +97,10 @@ func main() {
 
 func launchNodes(flagArgs *FlagArgs) {
 	log.Println("Launcing ", flagArgs.instances, " instances")
+	wg := sync.WaitGroup{}
 	for i := uint(0); i < flagArgs.instances; i++ {
-		go launchNode(flagArgs)
+		wg.Add(1)
+		go func() { defer wg.Done(); launchNode(flagArgs) }()
 	}
-
-	for {
-
-	}
+	wg.Wait()
 }

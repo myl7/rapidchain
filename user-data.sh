@@ -17,12 +17,12 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment; filename="userdata.txt"
 
-#!/bin/bash -x
-exec > /tmp/part-001.log 2>&1
-wget -O /home/ubuntu/rapidchain https://rapidchain-bucket.s3.amazonaws.com/rapidchain
-chmod +x /home/ubuntu/rapidchain
-ulimit -n 65000
+#!/bin/bash
+# CUSTOM: Set your URL to download the built rapidchain binary
+wget -O /home/ubuntu/rapidchain https://xshard-rapidchain.s3.amazonaws.com/rapidchain
+chmod a+x /home/ubuntu/rapidchain
+ulimit -n 65535
 sysctl -w net.ipv4.tcp_tw_reuse=1
+# CUSTOM: Options
 /home/ubuntu/rapidchain
-
---//
+--//--

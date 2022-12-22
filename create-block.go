@@ -25,6 +25,7 @@ Discussion:
 
 	The set of signatures using normal ECDSA is quite huge, but it have to be done (increasing the argument for BLS aggregate signtures), but the set only has to be
 	sent with the batched transactions to that committee.
+	MODIFIED: Use Ed25519 other than ECDSA
 
 	The signatures only sign the GossipHash of the proposed block. So how would C_out know that the cross-tx belongs to the block
 		Merkle proof of transactions?
